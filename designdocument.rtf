@@ -1,0 +1,42 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 Design documents:\
+\
+Major problems:\
+-Card Analysis\
+-AI Card Analysis\
+-AI Decision-making\
+-Turn-based game and analysis\
+\
+Card Analysis:\
+-Many many different options, too much time to hard-code all possible options\
+-Used well-designed card class to be able to compare the many different options successfully\
+-Utilized recursive **POWERSET** to appropriately analyze options\
+-Mixed recursion techniques and iteration to identify the best hand out of a set of 7. This was done primarily by iterating through the appropriate-length subsets for each hand.\
+	e.g. to detect STRAIGHTS, had a recursive isStraight() function\
+	       then iterated through the list of length-5 subsets, calling isStraight() on each list\
+	       if isStraight was successful, that subset was then appended to a list\
+	       at the very end, iterate through the created list to identify the HIGHEST possible straight.\
+\
+AI Card Analysis:\
+-Attempted to create a non-static AI by making it have multiple different choices (slightly randomized within an acceptable range) and dependent on multiple factors. made coding more difficult as had to keep track of more variables\
+-Adapted already-existing CARD ANALYSIS functions to return bet levels instead of hand types\
+	e.g. detecting a STRAIGHT would return a \'93mid\'94 level bet, but also used other functions\
+	       such as isAlmostStraight() to detect NEAR straights. Bet level would also fluctuate\
+	       dependent on the current part of the turn - an \'93almost straight\'94 would return a \'93low\'94 level\
+	       bet before all 5 cards are dealt, but would obviously warrant no bet after all five cards\
+	       have been dealt. on a similar note, a three-of-a-kind warrants a \'93mid\'94 level bet at the\
+	       \'93flop\'94, or when 3 cards have been dealt, due to the possibility of a full house, but otherwise\
+	       would warrant a \'93low\'94 level bet.\
+\
+AI Decision-making:\
+-Very difficult, due to the nature of non-static AI, with many many variables to keep track of.\
+-Ended up coding around the three mandatory statuses: \'93fold\'94, \'93check\'94, and \'93call\'94. used those three to help keep track of all possible options.\
+\
+Turn-based game:\
+-ended up being very difficult due to the nature of the game (hold\'92em has an enormous amount of rules to follow), so i chose to avoid a few of them: moving turns (starting at a different player every turn), and pre-game bets (after initial hand has been dealt, and pre-ante bets), as I didn\'92t have enough time to code both player and AI options for those situations.\
+-Coded around \'93keyPressed\'94 so that all AI analyses were done directly after player moves. added intentional delay to increase the \'93human\'94 feel of the game.}
